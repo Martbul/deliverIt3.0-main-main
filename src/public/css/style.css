@@ -9143,3 +9143,12 @@ div.oder:hover p.name {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+    .error-container{
+      margin-top: 2%;
+      margin-bottom: 2%;
+      text-align: center;
+      color:white;
+      border-radius: 5px;
+      
+    }
