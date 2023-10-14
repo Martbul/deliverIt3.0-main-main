@@ -1,11 +1,10 @@
-const jsonwetoken = require('jsonwebtoken');
-const {promisify} = require('util');
-
+const jsonwebtoken = require('jsonwebtoken')
+const {promisify} = require('util')
 
 
 const jwt = {
-    sing:promisify(jsonwetoken.sign),
-    verify:promisify(jsonwetoken.verify)
+    sign:promisify(jsonwebtoken.sign),
+    verify:promisify(jsonwebtoken.verify),
 }
 
 module.exports = jwt

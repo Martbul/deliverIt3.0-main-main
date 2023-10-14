@@ -1,23 +1,33 @@
 const router = require("express").Router();
 const userService = require("../services/userService");
 const { extractErrorMsgs } = require("./../utils/errorHandler");
+const isStrongPassword = require("validator/lib/isStrongPassword");
+const isEmail = require("validator/lib/isEmail");
 
 router.get("/singup", (req, res) => {
   res.render("singup");
 });
 
 router.post("/singup", async (req, res) => {
-  
   const { username, email, password } = req.body;
+
+
   try {
-    await userService.singup({ username, email, password });
-  res.redirect("/users/login");
-  } catch (error) {
-     const errorMessages = extractErrorMsgs(error);
-    res.status(404).render("singUp", { errorMessages });
+
+    const token = await userService.singup({ username, email, password });
+     if (!isStrongPassword(password)) {
+    return res.status(404).send("Weak password!");
   }
 
-  
+  if (!isEmail(email)) {
+    return res.status(404).send("Email is not valid!");
+  }
+    res.cookie("auth", token, { httpOnly: true });
+    res.redirect("/");
+  } catch (error) {
+    const errorMessages = extractErrorMsgs(error);
+    res.status(404).render("singUp", { errorMessages });
+  }
 });
 
 router.get("/login", (req, res) => {
@@ -33,7 +43,7 @@ router.post("/login", async (req, res) => {
     res.cookie("auth", token, { httpOnly: true });
     res.redirect("/");
   } catch (error) {
- const errorMessages = extractErrorMsgs(error);
+    const errorMessages = extractErrorMsgs(error);
     res.status(404).render("login", { errorMessages });
   }
 });
