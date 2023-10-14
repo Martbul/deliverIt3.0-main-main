@@ -11,17 +11,8 @@ router.get("/singup", (req, res) => {
 router.post("/singup", async (req, res) => {
   const { username, email, password } = req.body;
 
-
   try {
-
     const token = await userService.singup({ username, email, password });
-     if (!isStrongPassword(password)) {
-    return res.status(404).send("Weak password!");
-  }
-
-  if (!isEmail(email)) {
-    return res.status(404).send("Email is not valid!");
-  }
     res.cookie("auth", token, { httpOnly: true });
     res.redirect("/");
   } catch (error) {

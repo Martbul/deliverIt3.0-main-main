@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const deliverSchema = new mongoose.Schema({
-    deliverName: String,
-    deliverEmail:String,
-   deliverPassword: String,
+    deliverName: {type : String, required:true},
+    deliverEmail:{type : String, required:true, unique:true},
+   deliverPassword: {type : String, required:true},
 })
 
 deliverSchema.virtual('repeatPassword').set(function(value){

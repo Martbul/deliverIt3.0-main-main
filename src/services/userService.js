@@ -1,7 +1,7 @@
-const User = require('../models/User')
-const bcrypt = require('bcrypt')
-const jwt = require('../lib/jwt')
-const { SECRET } = require('../constants')
+const User = require("../models/User");
+const bcrypt = require("bcrypt");
+const jwt = require("../lib/jwt");
+const { SECRET } = require("../constants");
 
 async function validatePassword(password, userPassword) {
   const isValid = await bcrypt.compare(password, userPassword);
@@ -18,31 +18,26 @@ async function getToken(user) {
   return token;
 }
 
-
 exports.singup = async (userData) => {
-     const { password } = userData;
+  const { password } = userData;
   const user = await User.create(userData);
- 
 
   await validatePassword(password, user.password);
   const token = await getToken(user);
 
   return token;
-
-
-
-}
+};
 
 exports.login = async (email, password) => {
-   const user = await User.findOne({ email })
-   
-   if (!user) {
-      throw new Error('invalid username or password')
-   }
-  
-   await validatePassword(password, user.password);
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new Error("invalid username or password");
+  }
+
+  await validatePassword(password, user.password);
 
   const token = await getToken(user);
 
   return token;
-}
+};

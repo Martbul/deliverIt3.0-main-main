@@ -25,7 +25,8 @@ exports.loginForDeliver = async (deliverEmail, deliverPassword) => {
       _id: user._id,
       deliverEmail: user.deliverEmail
    }
+   
 
-   const token = await jwt.sing(payload, SECRET2, { expiresIn: "10d" })
+   const token = await jwt.sign(payload, SECRET2, { expiresIn: "10d" })
    return token
 }
