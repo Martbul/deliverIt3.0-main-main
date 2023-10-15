@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const orderSchema = new mongoose.Schema({
-   name: String,
-   order: String,
-   address: String,
-   dayForDelivery:String,
-timeForDelivery:String,
+   name: {type : String, required:true},
+   order: {type : String, required:true},
+   address: {type : String, required:true},
+   dayForDelivery:{type : String, required:true},
+timeForDelivery:{type : String, required:true},
 })
 
 const Order = mongoose.model('Order', orderSchema)

@@ -5,9 +5,6 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/order", (req, res) => {
-  res.render("order");
-});
 
 router.get("/beADeliver", (req, res) => {
   res.render("beADeliver");
